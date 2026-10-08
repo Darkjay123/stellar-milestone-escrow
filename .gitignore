@@ -1,0 +1,5 @@
+target/
+.stellar/
+test_snapshots/
+*.secret
+contracts/escrow/test_snapshots/
