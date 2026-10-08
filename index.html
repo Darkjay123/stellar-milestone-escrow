@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Milestone Escrow · Trustless milestone payments on Stellar</title>
+  <meta name="description" content="A security-first Soroban escrow: lock funds per milestone, release on delivery, arbiter disputes, deadline refunds. Live on Stellar testnet." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%2305070D'/><path d='M18 34l9 9 19-21' stroke='%2339FF88' stroke-width='7' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script type="module" crossorigin src="/stellar-milestone-escrow/assets/index-D6W2Wdht.js"></script>
+  <link rel="stylesheet" crossorigin href="/stellar-milestone-escrow/assets/index-9pejH97V.css">
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="glow glow-a"></div><div class="glow glow-b"></div>
+
+  <header class="nav">
+    <a class="brand" href="#top">
+      <span class="logo"><svg viewBox="0 0 24 24"><path d="M5 13l4.5 4.5L19 7"/></svg></span>
+      <span>Milestone<b>Escrow</b></span>
+    </a>
+    <nav>
+      <a href="#demo">Live demo</a>
+      <a href="#security">Security</a>
+      <a href="#onchain">On-chain proof</a>
+      <a class="btn-ghost sm" href="https://github.com/Darkjay123/stellar-milestone-escrow" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="pill"><span class="dot live"></span> Live on Stellar testnet · Soroban · Protocol 28</div>
+      <h1>Pay per milestone.<br/><span class="grad">Nobody holds the money but the code.</span></h1>
+      <p class="lead">A security-first escrow smart contract on Stellar. The client locks stablecoins for a freelancer, releases each milestone when the work lands, and a neutral arbiter settles disputes. Nobody can take the funds: not the developer, not the arbiter, not an attacker.</p>
+      <div class="cta">
+        <a class="btn-primary" href="#demo">Run it live <span>→</span></a>
+        <a class="btn-ghost" href="https://github.com/Darkjay123/stellar-milestone-escrow" target="_blank" rel="noopener">Read the contract</a>
+      </div>
+      <div class="stats">
+        <div><b>22</b><span>security tests passing</span></div>
+        <div><b>0</b><span>admin keys or backdoors</span></div>
+        <div><b>~5s</b><span>to finality</span></div>
+        <div><b>$0.00001</b><span>typical fee per action</span></div>
+      </div>
+    </section>
+
+    <section id="demo" class="section">
+      <div class="section-head">
+        <span class="eyebrow">01 · Live demo</span>
+        <h2>Spin up a real escrow on Stellar in about 15 seconds</h2>
+        <p>Three fresh testnet wallets get created in your browser and funded with free test XLM. Then a brand-new contract gets deployed. Every click below is a real transaction you can open on the block explorer.</p>
+      </div>
+      <div id="app"></div>
+    </section>
+
+    <section id="security" class="section">
+      <div class="section-head">
+        <span class="eyebrow">02 · Security model</span>
+        <h2>Every common escrow exploit is blocked and tested</h2>
+        <p>Every guarantee below is enforced in the contract and covered by a test.</p>
+      </div>
+      <div class="sec-grid">
+        <article><i>⌁</i><h3>No front-run setup</h3><p>Set up by a constructor at the moment it's deployed. There's no <code>init()</code> call an attacker could race to make themselves the recipient.</p></article>
+        <article><i>✎</i><h3>The right signature, every time</h3><p>Only the client releases, only the arbiter resolves, and only the two parties can dispute. Every money move calls <code>require_auth()</code>.</p></article>
+        <article><i>⟲</i><h3>No double payments</h3><p>A strict state machine per milestone. State is written before the transfer, so a milestone can't be paid twice.</p></article>
+        <article><i>⚖</i><h3>The arbiter can't steal</h3><p>The arbiter can only split a disputed milestone between client and freelancer. There's no third destination.</p></article>
+        <article><i>⏱</i><h3>Funds never get stuck</h3><p>After the deadline, anyone can trigger a refund of pending milestones, and it can only pay the client.</p></article>
+        <article><i>∑</i><h3>Overflow-safe</h3><p>Checked arithmetic on every total, plus overflow checks compiled into the release build.</p></article>
+        <article><i>◎</i><h3>Balance-verified funding</h3><p><code>fund()</code> checks the contract's real balance change, so a token with a transfer fee can't leave the escrow short.</p></article>
+        <article><i>⌀</i><h3>No admin, no upgrade</h3><p>No owner key, no sweep and no upgrade path. Funds only ever reach the client or the freelancer.</p></article>
+      </div>
+    </section>
+
+    <section id="onchain" class="section">
+      <div class="section-head">
+        <span class="eyebrow">03 · On-chain proof</span>
+        <h2>The reference escrow, read live from the network</h2>
+        <p>This is the first contract deployed. It ran the full lifecycle: funded, a milestone released, a dispute, and an arbiter split. Its state below is fetched right now from Stellar testnet.</p>
+      </div>
+      <div id="showcase" class="card showcase"><div class="skeleton">Reading contract state from Stellar…</div></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <span class="eyebrow">04 · Lifecycle</span>
+        <h2>How a milestone moves</h2>
+      </div>
+      <div class="flow">
+        <div class="node">Pending</div>
+        <div class="branches">
+          <div class="branch"><span class="by">client signs</span><span class="arrow">release →</span><div class="node ok">Released</div><span class="note">paid to freelancer</span></div>
+          <div class="branch"><span class="by">client or freelancer</span><span class="arrow">dispute →</span><div class="node warn">Disputed</div><span class="arrow">arbiter splits →</span><div class="node ok">Resolved</div></div>
+          <div class="branch"><span class="by">anyone, after deadline</span><span class="arrow">refund →</span><div class="node blue">Refunded</div><span class="note">back to client only</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div>Built by <a href="https://x.com/The_Real_EJC" target="_blank" rel="noopener">John Enechukwu</a> · Rust + Soroban SDK 28 · stellar-cli 28.1</div>
+    <div class="muted">Testnet demo. Not audited. Don't use with real funds until it's independently reviewed.</div>
+  </footer>
+  <div id="toast"></div>
+</body>
+</html>
