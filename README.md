@@ -20,7 +20,7 @@ Escrow contract (full lifecycle): [`CDUMAKBB2QHG4JWG6ZMBYGIHLBG6D34ZCLZ2NMM3V32T
 
 Final on-chain state: `Closed`, milestones `[Released, Resolved]`, contract balance 0.
 
-Refund escrow (deadline path): [`CDVHL3Y4ISLXLI4T5MZJY56DOAQMIPTHY4XTADEWPJCWHA5FG3JLO27F`](https://stellar.expert/explorer/testnet/contract/CDVHL3Y4ISLXLI4T5MZJY56DOAQMIPTHY4XTADEWPJCWHA5FG3JLO27F), funded in [84feaffb…](https://stellar.expert/explorer/testnet/tx/84feaffbf4de5f2b5538773b90a055d2603575f23834a3af7d8fbee050f36f10).
+Refund escrow (deadline path): [`CDVHL3Y4ISLXLI4T5MZJY56DOAQMIPTHY4XTADEWPJCWHA5FG3JLO27F`](https://stellar.expert/explorer/testnet/contract/CDVHL3Y4ISLXLI4T5MZJY56DOAQMIPTHY4XTADEWPJCWHA5FG3JLO27F), funded in [84feaffb…](https://stellar.expert/explorer/testnet/tx/84feaffbf4de5f2b5538773b90a055d2603575f23834a3af7d8fbee050f36f10). After the deadline passed, the freelancer's account triggered `refund(0)` in [d3ea9ff6…](https://stellar.expert/explorer/testnet/tx/d3ea9ff65c208f0e28360f451fd355e2b6bde7efdd95d7b12bf5c51254c88f47). Anyone can call it, but the 50 XLM can only go back to the client. Final state: `Closed`.
 
 Attacks rejected live on testnet (the network refused them in simulation, so they never reached the ledger):
 - Refund before the deadline → `Error(Contract, #13) DeadlineNotReached`
